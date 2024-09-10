@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100  // Max number of vertices
+
+int adjMatrix[MAX][MAX]; // Adjacency matrix to store the graph
+int visited[MAX];        // Array to keep track of visited nodes
+int queue[MAX];          // Queue for BFS
+int front = 0, rear = -1; // Queue front and rear
+
+// Function to add an edge in the graph
+void addEdge(int u, int v) {
+    adjMatrix[u][v] = 1;
+    adjMatrix[v][u] = 1; // If the graph is undirected
+}
+
+// Function to implement BFS traversal
+void BFS(int startVertex, int n) {
+    visited[startVertex] = 1;
+    queue[++rear] = startVertex;
+
+    while (front <= rear) {
+        int currentVertex = queue[front++];
+        printf("%d ", currentVertex);
+
+        // Traverse all the adjacent vertices
+        for (int i = 0; i < n; i++) {
+            if (adjMatrix[currentVertex][i] == 1 && !visited[i]) {
+                queue[++rear] = i;
+                visited[i] = 1;
+            }
+        }
+    }
+}
+
+int main() {
+    int n, edges, u, v, startVertex;
+
+    // Initialize the adjacency matrix and visited array
+    for (int i = 0; i < MAX; i++) {
+        visited[i] = 0;
+        for (int j = 0; j < MAX; j++) {
+            adjMatrix[i][j] = 0;
+        }
+    }
+
+    // Input number of vertices and edges
+    printf("Enter the number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter the number of edges: ");
+    scanf("%d", &edges);
+
+    // Input all edges
+    for (int i = 0; i < edges; i++) {
+        printf("Enter the edge (u v): ");
+        scanf("%d %d", &u, &v);
+        addEdge(u, v);
+    }
+
+    // Input starting vertex for BFS
+    printf("Enter the starting vertex for BFS: ");
+    scanf("%d", &startVertex);
+
+    // Perform BFS traversal
+    printf("BFS Traversal: ");
+    BFS(startVertex, n);
+
+    return 0;
+}
