@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+typedef struct node {
+    int vertex;
+    struct node *next;
+} NODE;
+
+void createMat(int m[10][10], int n) {
+    int i, j;
+    char ans;
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            m[i][j] = 0; // Initialize adjacency matrix with 0
+
+            if (i != j) {
+                printf("\nIs there an edge between %d and %d (0/1)? ", i, j);
+                scanf("%d", &m[i][j]); // Input whether there's an edge between i and j
+            }
+        }
+    }
+}
+
+void dispMat(int m[10][10], int n) {
+    int i, j;
+
+    printf("\nAdjacency Matrix:\n");
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            printf("%d ", m[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int n;
+    int matrix[10][10];
+
+    printf("Enter the number of vertices: ");
+    scanf("%d", &n);
+
+    createMat(matrix, n); // Create adjacency matrix
+    dispMat(matrix, n);   // Display adjacency matrix
+
+    return 0;
+}
